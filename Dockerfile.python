@@ -1,0 +1,24 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# Dockerfile.python — optional, kept for reference
+# Not required if using public image in nextflow.config
+# Build:  podman build -t quay.io/luischanlifebit/tcr-autoreactivity-python:latest -f Dockerfile.python .
+# Push:   podman push quay.io/luischanlifebit/tcr-autoreactivity-python:latest
+# ─────────────────────────────────────────────────────────────────────────────
+
+FROM python:3.11-slim
+
+LABEL maintainer="Luis Chan <luis@lifebit.ai>"
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    procps curl git \
+    && rm -rf /var/lib/apt/lists/*
+
+COPY requirements.txt /tmp/requirements.txt
+RUN pip install --no-cache-dir -r /tmp/requirements.txt
+
+COPY bin/ /usr/local/bin/
+RUN chmod +x /usr/local/bin/*.py
+
+WORKDIR /data
+
+ENTRYPOINT []
