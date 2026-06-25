@@ -2,16 +2,6 @@
 
 nextflow.enable.dsl = 2
 
-log.info """
-    TCR Autoreactivity ML Pipeline | Lifebit CloudOS | Nextflow DSL2
-    input_csv : ${params.input_csv}
-    outdir    : ${params.outdir}
-    n_ms      : ${params.n_ms}
-    n_sle     : ${params.n_sle}
-    n_hc      : ${params.n_hc}
-    n_lab     : ${params.n_lab}
-    """.stripIndent()
-
 process GENERATE_SYNTHETIC_DATA {
     tag "generate"
     publishDir "${params.outdir}/data", mode: 'copy'
